@@ -285,15 +285,49 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   const btn = document.getElementById("frcBtn");
   const cardImg = document.getElementById("frcCardImg");
   const modal = document.getElementById("frcModal");
+  const ageModal = document.getElementById("frcAgeModal");
   const overlay = document.getElementById("frcOverlay");
   const modalImg = document.getElementById("frcModalImg");
   const cardNameEl = document.getElementById("frcCardName");
   const cardDescEl = document.getElementById("frcCardDesc");
+  const dobInput = document.getElementById("frcDob");
 
   if (!btn) return;
 
   let cardData = []; // Будет загружено из CSV Google Таблицы
   let pulled = false;
+
+  // Поле даты: показываем плейсхолдер "Date of Birth" как обычный текст,
+  // а при фокусе превращаем в нативный date-picker.
+  if (dobInput) {
+    dobInput.addEventListener("focus", () => { dobInput.type = "date"; });
+    dobInput.addEventListener("blur", () => { if (!dobInput.value) dobInput.type = "text"; });
+  }
+
+  // Базовая проверка, что имя похоже на настоящее, а не случайный набор символов.
+  const isLikelyName = (value) => {
+    const name = value.trim();
+    if (name.length < 2) return false;
+    // Только буквы (включая Unicode), пробелы, дефисы и апострофы.
+    if (!/^[\p{L}][\p{L}\s'’-]*$/u.test(name)) return false;
+    if (/(.)\1\1/u.test(name)) return false; // три одинаковых символа подряд — "aaaa"
+    // Каждое слово должно содержать гласную и не иметь длинных цепочек согласных.
+    const vowels = /[aeiouyаеёиоуыэюяäöüáéíóúàèìòù]/i;
+    return name.split(/[\s'’-]+/).filter(Boolean).every((word) =>
+      vowels.test(word) && !/[^aeiouyаеёиоуыэюяäöüáéíóúàèìòù\s]{5,}/i.test(word)
+    );
+  };
+
+  // Возраст в полных годах по строке даты "YYYY-MM-DD".
+  const getAge = (dobStr) => {
+    const dob = new Date(dobStr);
+    if (isNaN(dob.getTime())) return null;
+    const now = new Date();
+    let age = now.getFullYear() - dob.getFullYear();
+    const m = now.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) age--;
+    return age;
+  };
 
   // Загрузка данных карт из опубликованной таблицы
   fetch(CARD_SHEET_URL)
@@ -326,24 +360,39 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   };
 
   const closeBtn = document.getElementById("frcModalClose");
+  const ageClose = document.getElementById("frcAgeClose");
 
   const closeModal = () => {
     overlay.classList.remove("active");
-    modal.classList.remove("active");
-    modal.setAttribute("aria-hidden", "true");
+    [modal, ageModal].forEach((m) => {
+      if (!m) return;
+      m.classList.remove("active");
+      m.setAttribute("aria-hidden", "true");
+    });
+  };
+
+  const openAgeModal = () => {
+    overlay.classList.add("active");
+    ageModal.classList.add("active");
+    ageModal.removeAttribute("aria-hidden");
   };
 
   overlay.addEventListener("click", closeModal);
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (ageClose) ageClose.addEventListener("click", closeModal);
 
   // Закрытие по клику вне карточки (по фону модального окна)
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
+  [modal, ageModal].forEach((m) => {
+    if (!m) return;
+    m.addEventListener("click", (e) => {
+      if (e.target === m) closeModal();
+    });
   });
 
   // Закрытие по Escape
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
+    const anyOpen = modal.classList.contains("active") || (ageModal && ageModal.classList.contains("active"));
+    if (e.key === "Escape" && anyOpen) closeModal();
   });
 
   btn.addEventListener("click", () => {
@@ -354,6 +403,22 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
     if (!name || !dob) {
       alert("Please enter your name and date of birth.");
+      return;
+    }
+
+    if (!isLikelyName(name)) {
+      alert("Please enter your real name.");
+      return;
+    }
+
+    const age = getAge(dob);
+    if (age === null) {
+      alert("Please enter a valid date of birth.");
+      return;
+    }
+
+    if (age < 16) {
+      openAgeModal();
       return;
     }
 
