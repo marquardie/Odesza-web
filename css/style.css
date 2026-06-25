@@ -1305,6 +1305,7 @@ p {
 }
 
 .frc-modal-inner {
+  position: relative;
   background: var(--color-surface);
   border: 1px solid rgba(201, 168, 76, 0.3);
   border-top: 2px solid var(--color-gold);
@@ -1314,6 +1315,28 @@ p {
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.7);
   animation: frcModalIn 0.4s ease;
+}
+
+.frc-modal-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.9rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.frc-modal-close:hover {
+  color: var(--color-gold-light);
 }
 
 @keyframes frcModalIn {

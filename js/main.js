@@ -325,6 +325,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }, 2000); // 2 секунды задержки после анимации открытия карты
   };
 
+  const closeBtn = document.getElementById("frcModalClose");
+
   const closeModal = () => {
     overlay.classList.remove("active");
     modal.classList.remove("active");
@@ -332,6 +334,17 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   };
 
   overlay.addEventListener("click", closeModal);
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  // Закрытие по клику вне карточки (по фону модального окна)
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Закрытие по Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
+  });
 
   btn.addEventListener("click", () => {
     if (pulled) return;
