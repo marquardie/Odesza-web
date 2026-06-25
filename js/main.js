@@ -329,10 +329,27 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     return age;
   };
 
-  // Загрузка данных карт из опубликованной таблицы
+  // Превращаем имя файла в читаемое название карты как запасной вариант,
+  // если данные из таблицы недоступны. "00-TheFool.png" -> "The Fool".
+  const prettyNameFromFile = (file) =>
+    (file || "")
+      .replace(/\.[a-z0-9]+$/i, "")          // убрать расширение
+      .replace(/^\d+[-_]?/, "")              // убрать ведущий номер "00-"
+      .replace(/([a-z])([A-Z])/g, "$1 $2")   // TheFool -> The Fool
+      .replace(/([A-Za-z])(\d)/g, "$1 $2")   // Cups01 -> Cups 01
+      .trim();
+
+  // Загрузка данных карт из опубликованной таблицы.
+  // Проверяем, что пришёл именно CSV, а не HTML/JS страница ошибки Google.
   fetch(CARD_SHEET_URL)
-    .then(r => r.text())
+    .then(r => (r.ok ? r.text() : Promise.reject(new Error("HTTP " + r.status))))
     .then(csv => {
+      const head = csv.slice(0, 300);
+      const looksLikeCsv = !/<(!doctype|html|head|script|body)\b/i.test(head)
+        && !/Cannot find global object|globalThis|function\s+\w*\(/.test(head);
+      if (!looksLikeCsv) {
+        throw new Error("Response is not CSV (check the published sheet URL)");
+      }
       cardData = csv.trim().split("\n").slice(1).map(row => {
         const cols = row.split(",");
         const name = cols[0]?.trim().replace(/^"|"$/g, "") || "";
@@ -341,22 +358,25 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
         return { name, desc };
       });
     })
-    .catch(() => console.warn("Could not load card data from Google Sheets"));
+    .catch((e) => {
+      cardData = [];
+      console.warn("Could not load card data from Google Sheets:", e.message);
+    });
 
   const openModal = (cardIndex) => {
-    const card = cardData[cardIndex] || { name: "Unknown Card", desc: "No description available." };
     const imgName = CARD_IMAGES[cardIndex] || CARD_BACK_FILE;
+    const card = cardData[cardIndex] || {};
+    const name = card.name || prettyNameFromFile(CARD_IMAGES[cardIndex]) || "Your Card";
+    const desc = card.desc || "Your card has been drawn. Book a session to hear what it means for you.";
 
     modalImg.src = getCardUrl(imgName);
-    modalImg.alt = card.name;
-    cardNameEl.textContent = card.name;
-    cardDescEl.textContent = card.desc;
+    modalImg.alt = name;
+    cardNameEl.textContent = name;
+    cardDescEl.textContent = desc;
 
-    setTimeout(() => {
-      overlay.classList.add("active");
-      modal.classList.add("active");
-      modal.removeAttribute("aria-hidden");
-    }, 2000); // 2 секунды задержки после анимации открытия карты
+    overlay.classList.add("active");
+    modal.classList.add("active");
+    modal.removeAttribute("aria-hidden");
   };
 
   const closeBtn = document.getElementById("frcModalClose");
@@ -430,16 +450,17 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const seed = (name + dob).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
     const cardIndex = seed % (CARD_IMAGES.length || 78);
 
-    // Запуск анимации переворота
-    cardImg.classList.add("frc-flip");
+    // Карта крутится вокруг своей оси со свечением 2 секунды.
+    cardImg.classList.add("frc-spinning");
 
-    cardImg.addEventListener("animationend", () => {
-      // После половины анимации подменяем картинку рубашки на лицевую сторону карты из GitHub
+    setTimeout(() => {
+      cardImg.classList.remove("frc-spinning");
+      // Подменяем рубашку на лицевую сторону выпавшей карты из GitHub.
       const resultCardFile = CARD_IMAGES[cardIndex] || CARD_BACK_FILE;
       cardImg.src = getCardUrl(resultCardFile);
       cardImg.alt = cardData[cardIndex]?.name || "Your card";
 
       openModal(cardIndex);
-    }, { once: true });
+    }, 2000);
   });
 })();
