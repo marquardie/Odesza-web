@@ -1,3 +1,12 @@
+// При обновлении страницы открываем её сверху, а не с места, где остановился
+// пользователь (отключаем восстановление позиции прокрутки браузером).
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.addEventListener("load", () => {
+  if (!window.location.hash) window.scrollTo(0, 0);
+});
+
 // ── Tarot card data sources ──
 // Google Sheet (78 card descriptions) published as CSV. Replace SHEET_ID with your sheet's ID.
 const CARD_SHEET_URL = "https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=0";
