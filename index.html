@@ -7,12 +7,11 @@
     <meta name="description" content="Premium tarot landing page for Odesza. Private online readings, personal brand presentation, and Telegram-first lead flow.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=6">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
-    <canvas
-        id="spiral-canvas"
+    <canvas id="spiral-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.85;"
     ></canvas>
 
@@ -22,8 +21,9 @@
             <nav class="nav-links" aria-label="Primary">
                 <a href="#about">About</a>
                 <a href="#specializations">Specializations</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#free-reading">Free Reading</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#free-reading">Pull Free Card</a>
             </nav>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-nav-toggle>
                 <span></span>
@@ -33,8 +33,9 @@
         <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" data-mobile-menu>
             <a href="#about">About</a>
             <a href="#specializations">Specializations</a>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#free-reading">Free Reading</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#free-reading">Pull Free Card</a>
         </nav>
     </header>
 
@@ -67,18 +68,32 @@
                 </div>
 
                 <div class="about-copy">
-                    <p class="eyebrow">About</p>
                     <h2>Who am I?</h2>
                     <p>Hi, I'm Odesza, a professional tarot reader with over 11 years of dedicated practice. Throughout my career, I've conducted more than 4,000 individual readings and accumulated over 40,000 hours of hands-on experience. Every session is deeply personal — I don't do generic spreads or vague predictions. I read the energy as it is, honestly and directly.</p>
 
-                    <div class="stat-pills">
-                        <div class="stat-pill">✦ 4,000+ Readings</div>
-                        <div class="stat-pill">✦ 11 Years of Practice</div>
-                        <div class="stat-pill">✦ 40,000+ Hours of Experience</div>
-                        <div class="stat-pill">✦ Worldwide Clients</div>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-number">4,000+</span>
+                            <span class="stat-label">Readings</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">11</span>
+                            <span class="stat-label">Years of Practice</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">40K+</span>
+                            <span class="stat-label">Hours of Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">🌍</span>
+                            <span class="stat-label">Worldwide Clients</span>
+                        </div>
                     </div>
 
-                    <p class="about-quote">"The cards don't tell you what to do — they show you what you already know."</p>
+                    <div class="about-quote-block">
+                        <p class="about-quote-label">And above all else —</p>
+                        <p class="about-quote">"The cards don't tell you what to do — they show you what you already know."</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -87,59 +102,69 @@
 
         <section id="specializations" class="specializations section surface-section animate-on-scroll">
             <div class="section-heading">
-                <p class="eyebrow">Areas of Work</p>
-                <h2>What the Cards Can Illuminate</h2>
-                <p class="section-subheading">Tarot is a mirror, not a fortune machine. Here's where it speaks most clearly.</p>
+                <p class="eyebrow">What I Work With</p>
+                <h2>Tools &amp; Practices</h2>
+                <p class="section-subheading">Each practice is a different lens. Together they give you the full picture.</p>
             </div>
 
-            <div class="specialization-grid">
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M12 20s-6.5-4.1-8.9-8C1 8.8 2.2 5.5 5.4 5.1c2-.2 3.3.7 4.2 2 1-1.3 2.2-2.2 4.2-2C17 5.5 18.2 8.8 16.9 12c-2.4 3.9-8.9 8-8.9 8Z"/></svg>
+            <div class="practices-grid">
+
+                <article class="practice-card practice-card--wide">
+                    <div class="practice-header">
+                        <span class="practice-icon">✦</span>
+                        <h3>Tarot Readings</h3>
                     </div>
-                    <h3>Love &amp; Relationships</h3>
-                    <p>Tarot cuts through projection and fear to reveal what's truly happening between you and another. Best for: situationships, breakups, new connections, self-worth in love.</p>
+                    <p class="practice-tagline">The most direct conversation with your current energy.</p>
+                    <div class="practice-topics">
+                        <div class="practice-topic">
+                            <span class="topic-name">Love &amp; Relationships</span>
+                            <span class="topic-desc">Situationships, breakups, new connections, self-worth in love — tarot cuts through projection and fear to reveal what's actually happening between you and another person.</span>
+                        </div>
+                        <div class="practice-topic">
+                            <span class="topic-name">Career &amp; Life Path</span>
+                            <span class="topic-desc">Clarity on what you already know but haven't admitted yet. Surfaces the options, blocks, and timing your rational mind avoids.</span>
+                        </div>
+                        <div class="practice-topic">
+                            <span class="topic-name">Important Decisions</span>
+                            <span class="topic-desc">A third perspective — not yours, not others'. Quieter and more honest. Best for major life choices: moving, ending or starting something significant.</span>
+                        </div>
+                        <div class="practice-topic">
+                            <span class="topic-name">Shadow Work &amp; Energetic Blocks</span>
+                            <span class="topic-desc">Names what's hiding beneath the surface — the belief, the fear, the pattern. Best for self-sabotage, repeating situations, emotional heaviness.</span>
+                        </div>
+                    </div>
                 </article>
 
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M12 2l3.2 6.8L22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2L12 2Zm0 5.2L10.3 11 7 12l3.3 1 1.7 3.8 1.7-3.8 3.3-1-3.3-1-1.7-3.8Z"/></svg>
+                <article class="practice-card">
+                    <div class="practice-header">
+                        <span class="practice-icon">◈</span>
+                        <h3>Matrix of Destiny</h3>
                     </div>
-                    <h3>Career &amp; Life Path</h3>
-                    <p>Clarity on what you already know but haven't admitted yet. Tarot surfaces the options, blocks, and timing your rational mind avoids. Best for: career crossroads, business decisions, burnout.</p>
+                    <p class="practice-tagline">A ready-made instruction manual to yourself.</p>
+                    <p class="practice-body">Your innate talents, strengths, and blind spots that need attention. It maps your financial potential — which areas of life naturally generate abundance — your ideal relationship formats, and the karmic tasks that have been following you from the past.</p>
+                    <p class="practice-body">Think of it as the blueprint that shows you how to bring your life into the positive.</p>
                 </article>
 
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M12 5c5.5 0 9.8 5 10 7-.2 2-4.5 7-10 7S2.2 14 2 12c.2-2 4.5-7 10-7Zm0 2.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5Zm0 2A2.5 2.5 0 1 1 12 14.5 2.5 2.5 0 0 1 12 9.5Z"/></svg>
+                <article class="practice-card">
+                    <div class="practice-header">
+                        <span class="practice-icon">☽</span>
+                        <h3>Natal Chart</h3>
                     </div>
-                    <h3>Self-Discovery</h3>
-                    <p>Tarot reads the parts of you that haven't found words yet — patterns, gifts, wounds, potential. Best for: feeling lost, identity shifts, inner work, recurring life themes.</p>
+                    <p class="practice-tagline">The foundational map of your psyche and fate.</p>
+                    <p class="practice-body">Deep psychological layers, hidden triggers, and unconscious patterns. It shows how you love, how you think, where your crises lie — and where your greatest luck waits. From it, precise forward-looking forecasts become possible.</p>
+                    <p class="practice-body">It explains why you are built exactly the way you are.</p>
                 </article>
 
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M11 2h2v4.1A6 6 0 0 1 18 12h4v2h-4a6 6 0 0 1-5 5.9V24h-2v-4.1A6 6 0 0 1 6 14H2v-2h4a6 6 0 0 1 5-5.9V2Zm1 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
+                <article class="practice-card">
+                    <div class="practice-header">
+                        <span class="practice-icon">ᚱ</span>
+                        <h3>Runes</h3>
                     </div>
-                    <h3>Energetic Blocks &amp; Shadow Work</h3>
-                    <p>Shadow work through tarot names what's hiding beneath the surface — the belief, the fear, the pattern. Best for: self-sabotage, repeating situations, emotional heaviness.</p>
+                    <p class="practice-tagline">Your real-time advisor and navigator.</p>
+                    <p class="practice-body">The current state of things, hidden motives of people around you, and the true causes behind pressing problems. Runes excel at short-term forecasts, offer direct advice for difficult moments, and reveal where your energy is quietly leaking.</p>
+                    <p class="practice-body">The answer to: <em>"What do I do right now?"</em></p>
                 </article>
 
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M12 2l7 7-7 13L5 9l7-7Zm0 3.2L8 9h8l-4-3.8Zm-2.8 5.8L12 17l2.8-6h-5.6Z"/></svg>
-                    </div>
-                    <h3>Important Decisions</h3>
-                    <p>A third perspective — not yours, not others', but something quieter and more honest. Best for: major life choices, moving, ending or starting something significant.</p>
-                </article>
-
-                <article class="spec-card">
-                    <div class="spec-icon">
-                        <svg viewBox="0 0 24 24" role="presentation"><path d="M16.5 3A9 9 0 1 0 21 19.8 8 8 0 1 1 16.5 3Z"/></svg>
-                    </div>
-                    <h3>Timing &amp; What's Coming</h3>
-                    <p>Tarot reads the current energy and where it's heading. Sometimes that's enough to know what to do right now. Best for: "is this the right time?", seasonal readings, energy forecasts.</p>
-                </article>
             </div>
         </section>
 
@@ -149,33 +174,76 @@
             <div class="section-heading">
                 <p class="eyebrow">Sessions</p>
                 <h2>Pricing</h2>
+                <p class="section-subheading">All sessions are one-on-one, conducted online via video or voice call.</p>
             </div>
 
             <div class="pricing-grid">
+
                 <article class="price-card">
-                    <h3>30 Minutes</h3>
-                    <p class="price-desc">One focused question or situation. Quick clarity when you need it most.</p>
-                    <p class="price-value">$40</p>
-                    <a class="btn-book" href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Book Now</a>
-                </article>
-                <article class="price-card">
-                    <h3>45 Minutes</h3>
-                    <p class="price-desc">Two to three questions. Enough time to explore love, career, or a crossroads.</p>
-                    <p class="price-value">$65</p>
-                    <a class="btn-book" href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Book Now</a>
-                </article>
-                <article class="price-card">
+                    <p class="price-star">✦</p>
                     <h3>60 Minutes</h3>
-                    <p class="price-desc">Full deep dive. Relationships, blocks, timing, shadow work — all in one session.</p>
-                    <p class="price-value">$100</p>
-                    <a class="btn-book" href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Book Now</a>
+                    <span class="price-divider"></span>
+                    <p class="price-desc">Deep dive into one key area — love, career, decisions, or blocks. Enough space for real clarity.</p>
+                    <p class="price-value">$150</p>
                 </article>
+
                 <article class="price-card">
-                    <h3>Individual</h3>
-                    <p class="price-desc">Custom format tailored to you. Extended sessions, recurring guidance, or unique requests.</p>
-                    <p class="price-value">from $250</p>
-                    <a class="btn-book" href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Book Now</a>
+                    <p class="price-star">✦ ✦</p>
+                    <h3>90 Minutes</h3>
+                    <span class="price-divider"></span>
+                    <p class="price-desc">Two to three areas explored together. Time to see the full picture and walk away with a plan.</p>
+                    <p class="price-value">$220</p>
                 </article>
+
+                <article class="price-card">
+                    <p class="price-star">✦ ✦ ✦</p>
+                    <h3>2 Hours</h3>
+                    <span class="price-divider"></span>
+                    <p class="price-desc">Extended session combining tarot, matrix, or natal chart. For when you want the complete read.</p>
+                    <p class="price-value">$300</p>
+                </article>
+
+                <article class="price-card">
+                    <p class="price-star">✦ ✦ ✦ ✦</p>
+                    <h3>3 Hours</h3>
+                    <span class="price-divider"></span>
+                    <p class="price-desc">Full comprehensive work across multiple areas and tools. A session that changes things.</p>
+                    <p class="price-value">$400</p>
+                </article>
+
+            </div>
+
+            <div class="pricing-quick">
+                <p class="pricing-subtitle">Quick Questions</p>
+                <div class="quick-card">
+                    <div class="quick-left">
+                        <h3>3 Focused Questions</h3>
+                        <p>Short, precise, honest. Three questions answered via Telegram — no call needed. Perfect when you just need a quick read on a situation.</p>
+                    </div>
+                    <p class="price-value quick-price">$25</p>
+                </div>
+            </div>
+
+            <div class="pricing-cta-block">
+                <a class="btn-primary pricing-book-btn" href="https://www.instagram.com/odesza_knows/" target="_blank" rel="noreferrer">Book Now via Instagram →</a>
+            </div>
+
+            <div class="payment-methods">
+                <p class="payment-label">Payment Methods</p>
+                <div class="payment-icons">
+                    <div class="payment-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5c.5-1.5 2-2.5 3.5-2 1.7.5 2.5 2.5 1.5 4L12 14"/><circle cx="12" cy="17.5" r=".5" fill="currentColor"/></svg>
+                        <span>Crypto</span>
+                    </div>
+                    <div class="payment-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M3 14h18M7 6h.01M7 18h.01"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+                        <span>Bank Transfer</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -183,8 +251,7 @@
 
         <section id="testimonials" class="section surface-section animate-on-scroll">
             <div class="section-heading">
-                <p class="eyebrow">What People Say</p>
-                <h2>Real Readings. Real Shifts.</h2>
+                <h2>What People Say</h2>
             </div>
 
             <div class="testimonials-wrap">
@@ -192,51 +259,51 @@
                 <button class="tst-arrow tst-next" type="button" aria-label="Next">&rsaquo;</button>
             <div class="testimonials-container">
                 <div class="testimonial-card">
-                    <blockquote>
+                    <blockquote class="tst-quote">
                         <p>"I was stuck in a cycle I couldn't explain. After one session with Odesza, I finally saw the pattern clearly. She doesn't sugarcoat — and that's exactly what I needed."</p>
                     </blockquote>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" data-initials="MK"></div>
                         <p>M.K., London</p>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <blockquote>
+                    <blockquote class="tst-quote">
                         <p>"I came in skeptical and left speechless. She described my situation with details no one else could know. The reading gave me the courage to finally make a decision I'd been avoiding for months."</p>
                     </blockquote>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" data-initials="S"></div>
                         <p>Sarah T., New York</p>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <blockquote>
+                    <blockquote class="tst-quote">
                         <p>"Odesza has a rare gift — she feels the energy, not just reads the cards. Every session leaves me with clarity and a sense of calm I can't find anywhere else. Truly life-changing work."</p>
                     </blockquote>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" data-initials="A"></div>
                         <p>A., Berlin</p>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <blockquote>
+                    <blockquote class="tst-quote">
                         <p>"I've had readings before, but nothing like this. Odesza picked up on things I hadn't told anyone. It felt like the cards were speaking directly to me. I've booked three more sessions since."</p>
                     </blockquote>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" data-initials="D"></div>
                         <p>Diana R., Dubai</p>
                     </div>
                 </div>
 
                 <div class="testimonial-card">
-                    <blockquote>
+                    <blockquote class="tst-quote">
                         <p>"She told me things about my relationship that turned out to be completely true weeks later. No fluff, no generic answers — just real, raw insight. I recommend Odesza to everyone I know."</p>
                     </blockquote>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" data-initials="L"></div>
                         <p>L.P., Toronto</p>
                     </div>
                 </div>
@@ -245,23 +312,34 @@
         </section>
 
         <section id="free-reading" class="free-reading section surface-section animate-on-scroll">
-            <div class="free-reading-shell">
-                <div class="free-symbol" aria-hidden="true">
-                    <svg viewBox="0 0 120 120" role="presentation">
-                        <circle cx="60" cy="60" r="42"></circle>
-                        <path d="M60 10V110"></path>
-                        <path d="M10 60H110"></path>
-                        <path d="M26 26L94 94"></path>
-                        <path d="M94 26L26 94"></path>
-                    </svg>
+            <div class="frc-shell">
+                <p class="eyebrow">Free Card</p>
+                <h2>Pull Your Free Card</h2>
+                <p class="frc-subtitle">Enter your name and date of birth — then pull a card from the deck.</p>
+
+                <div class="frc-card-wrap">
+                    <img class="frc-card-img" id="frcCardImg"
+                         src="https://raw.githubusercontent.com/marquardie/Tarot-Cards/main/Gemini_Generated_Image_745loz745loz745l.png"
+                         alt="Tarot card back" />
                 </div>
-                <p class="eyebrow">Free Reading</p>
-                <h2>Still not sure? Let the cards speak first.</h2>
-                <p class="free-body">Ask Odesza one question. She will draw one card for you — completely free, no strings attached. Just open Telegram, send your question, and see what comes through.</p>
-                <p class="free-note">✦ Responses arrive within 30–120 minutes. The cards need time too.</p>
-                <a class="btn-primary free-cta" href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Draw My Free Card →</a>
-                <p class="free-tiny">No email. No sign-up.<br>Just Telegram.</p>
+
+                <form class="frc-form" id="frcForm" onsubmit="return false;">
+                    <input class="frc-input" type="text" id="frcName" placeholder="Enter your name" autocomplete="off" required />
+                    <input class="frc-input" type="date" id="frcDob" placeholder="Date of Birth" required />
+                    <button class="btn-primary frc-btn" id="frcBtn" type="submit">Pull Free Card</button>
+                </form>
             </div>
+
+            <div class="frc-modal" id="frcModal" aria-hidden="true">
+                <div class="frc-modal-inner">
+                    <img class="frc-modal-img" id="frcModalImg" src="" alt="" />
+                    <p class="eyebrow frc-modal-eyebrow">Your Card</p>
+                    <h3 id="frcCardName"></h3>
+                    <p id="frcCardDesc" class="frc-modal-desc"></p>
+                    <a class="btn-primary frc-modal-cta" href="#pricing">Press Here to Go Further →</a>
+                </div>
+            </div>
+            <div class="frc-overlay" id="frcOverlay"></div>
         </section>
     </main>
 
@@ -273,7 +351,7 @@
         <div class="footer-links">
             <a href="https://t.me/odesza_tarott_bot" target="_blank" rel="noreferrer">Telegram</a>
             <!-- [REPLACE: Instagram link] -->
-            <a href="#" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.instagram.com/odesza_knows/" target="_blank" rel="noreferrer">Instagram</a>
         </div>
         <div class="footer-meta">
             <p>© 2025 Odesza. All rights reserved.</p>
