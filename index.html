@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=18">
 </head>
 <body>
     <canvas id="spiral-canvas"
@@ -315,19 +315,32 @@
             <div class="frc-shell">
                 <p class="eyebrow">Free Card</p>
                 <h2>Pull Your Free Card</h2>
-                <p class="frc-subtitle">Enter your name and date of birth — then pull a card from the deck.</p>
 
-                <div class="frc-card-wrap">
-                    <img class="frc-card-img" id="frcCardImg"
-                         src="https://raw.githubusercontent.com/marquardie/Tarot-Cards/main/Gemini_Generated_Image_745loz745loz745l.png"
-                         alt="Tarot card back" />
+                <div id="frcInteractive">
+                    <p class="frc-subtitle">Enter your name and date of birth — then pull a card from the deck.</p>
+
+                    <div class="frc-card-wrap">
+                        <img class="frc-card-img" id="frcCardImg"
+                             src="https://raw.githubusercontent.com/marquardie/Tarot-Cards/main/Gemini_Generated_Image_745loz745loz745l.png"
+                             alt="Tarot card back" />
+                    </div>
+
+                    <form class="frc-form" id="frcForm" onsubmit="return false;">
+                        <input class="frc-input" type="text" id="frcName" placeholder="Enter your name" autocomplete="off" required />
+                        <input class="frc-input" type="text" id="frcDob" placeholder="Date of Birth" autocomplete="off" required />
+                        <button class="btn-primary frc-btn" id="frcBtn" type="submit">Pull Free Card</button>
+                    </form>
                 </div>
 
-                <form class="frc-form" id="frcForm" onsubmit="return false;">
-                    <input class="frc-input" type="text" id="frcName" placeholder="Enter your name" autocomplete="off" required />
-                    <input class="frc-input" type="text" id="frcDob" placeholder="Date of Birth" autocomplete="off" required />
-                    <button class="btn-primary frc-btn" id="frcBtn" type="submit">Pull Free Card</button>
-                </form>
+                <div class="frc-today" id="frcToday" hidden>
+                    <p class="frc-subtitle frc-today-label">Your today's card is</p>
+                    <div class="frc-card-wrap">
+                        <img class="frc-card-img" id="frcTodayImg" src="" alt="" title="Tap to see your card" />
+                    </div>
+                    <h3 id="frcTodayName"></h3>
+                    <p class="frc-subtitle">Come back tomorrow to pull another free card.</p>
+                    <a class="btn-primary frc-today-cta" href="#pricing">Book a Reading →</a>
+                </div>
             </div>
 
             <div class="frc-modal" id="frcModal" aria-hidden="true">

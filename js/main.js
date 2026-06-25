@@ -291,8 +291,37 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   const cardNameEl = document.getElementById("frcCardName");
   const cardDescEl = document.getElementById("frcCardDesc");
   const dobInput = document.getElementById("frcDob");
+  const interactive = document.getElementById("frcInteractive");
+  const todayBlock = document.getElementById("frcToday");
+  const todayImg = document.getElementById("frcTodayImg");
+  const todayName = document.getElementById("frcTodayName");
 
   if (!btn) return;
+
+  // ── Одна бесплатная карта в день (по календарной дате, сброс в 00:00) ──
+  // Ограничение хранится в localStorage браузера (на статичном сайте нет
+  // серверной части для проверки по IP).
+  const STORAGE_KEY = "odesza_free_card";
+
+  const todayKey = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  const loadRecord = () => {
+    try {
+      const rec = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      return rec && rec.date === todayKey() ? rec : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const saveRecord = (cardIndex, name) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: todayKey(), cardIndex, name }));
+    } catch (e) { /* localStorage недоступен (приватный режим) — молча игнорируем */ }
+  };
 
   let cardData = []; // Будет загружено из CSV Google Таблицы
   let pulled = false;
@@ -379,6 +408,23 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     modal.removeAttribute("aria-hidden");
   };
 
+  // Показывает блок "карта на сегодня" вместо формы.
+  const renderTodayState = (cardIndex, name) => {
+    if (!todayBlock || !interactive) return;
+    const imgName = CARD_IMAGES[cardIndex] || CARD_BACK_FILE;
+    const cardName = name || cardData[cardIndex]?.name || prettyNameFromFile(CARD_IMAGES[cardIndex]) || "Your Card";
+    if (todayImg) {
+      todayImg.src = getCardUrl(imgName);
+      todayImg.alt = cardName;
+      // Клик по карте снова открывает окно с названием и описанием.
+      todayImg.style.cursor = "pointer";
+      todayImg.onclick = () => openModal(cardIndex);
+    }
+    if (todayName) todayName.textContent = cardName;
+    interactive.hidden = true;
+    todayBlock.hidden = false;
+  };
+
   const closeBtn = document.getElementById("frcModalClose");
   const ageClose = document.getElementById("frcAgeClose");
 
@@ -460,7 +506,17 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
       cardImg.src = getCardUrl(resultCardFile);
       cardImg.alt = cardData[cardIndex]?.name || "Your card";
 
+      const resultName = cardData[cardIndex]?.name || prettyNameFromFile(resultCardFile);
+      saveRecord(cardIndex, resultName);  // запоминаем карту на сегодня
       openModal(cardIndex);
+      renderTodayState(cardIndex, resultName); // под модалкой остаётся блок "карта на сегодня"
     }, 2000);
   });
+
+  // При загрузке: если карта на сегодня уже вытянута — показываем её вместо формы.
+  const existing = loadRecord();
+  if (existing) {
+    pulled = true;
+    renderTodayState(existing.cardIndex, existing.name);
+  }
 })();
